@@ -12,6 +12,7 @@ import LocalAuthentication
 class ViewController: UIViewController {
     
     @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var loginStatusLabel: UILabel!
     @IBOutlet weak var button: UIButton!
     @IBOutlet weak var faceIdDescriptionLabel: UILabel!
     
@@ -21,7 +22,9 @@ class ViewController: UIViewController {
     var state: AuthenticationState = .loggedout {
         didSet {
             headerView.backgroundColor = self.state == .loggedin ? .systemGreen : .systemGray
+            loginStatusLabel.text = self.state == .loggedin ? "ログイン中" : "LocalAuthenticationSample"
             button.backgroundColor = self.state == .loggedout ? .systemGreen : .systemGray
+            button.setTitle(self.state == .loggedin ? "ログアウト" : "ログイン", for: .normal)
             faceIdDescriptionLabel.isHidden = state == .loggedin || context.biometryType != .faceID
         }
     }
